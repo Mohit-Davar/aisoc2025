@@ -55,37 +55,35 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
   const activeComponent = content[activeCard]?.component;
 
   return (
-    <motion.div
-      className="relative flex justify-center space-x-10 mx-auto p-10 rounded-md max-w-5xl"
+    <div
+      className="flex justify-center gap-10 lg:mx-auto p-10 lg:max-w-5xl"
       ref={ref}
     >
       {/* Left Text Content */}
-      <div className="relative flex items-start px-4">
-        <div className="space-y-20 max-w-3xl">
-          {content.map((item, index) => (
-            <div
-              key={`${item.title}-${index}`}
-              className="card-section"
+      <div className="space-y-20 max-w-3xl lg:text-left text-center">
+        {content.map((item, index) => (
+          <div
+            key={`${item.title}-${index}`}
+            className="card-section"
+          >
+            <motion.h2
+              initial={{ opacity: 0 }}
+              animate={{ opacity: activeCard === index ? 1 : 0.3 }}
+              transition={{ duration: 0.3 }}
+              className="font-grotesk font-bold text-orange-600 sm:text-2xl"
             >
-              <motion.h2
-                initial={{ opacity: 0 }}
-                animate={{ opacity: activeCard === index ? 1 : 0.3 }}
-                transition={{ duration: 0.3 }}
-                className="font-grotesk font-bold text-orange-600 text-2xl"
-              >
-                {item.title}
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: activeCard === index ? 1 : 0.3 }}
-                transition={{ duration: 0.3 }}
-                className="mt-5 max-w-sm font-inter text-slate-800"
-              >
-                {item.description}
-              </motion.p>
-            </div>
-          ))}
-        </div>
+              {item.title}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: activeCard === index ? 1 : 0.3 }}
+              transition={{ duration: 0.3 }}
+              className="mt-5 max-w-sm font-inter text-slate-800 text-sm sm:text-base"
+            >
+              {item.description}
+            </motion.p>
+          </div>
+        ))}
       </div>
 
       {/* Right Sticky Box with animated component */}
@@ -109,6 +107,6 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
           )}
         </AnimatePresence>
       </div>
-    </motion.div>
+    </div>
   );
 };

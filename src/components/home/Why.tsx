@@ -1,5 +1,10 @@
-import { CodeBlock } from "@/components/ui/code-block";
-import { StickyScroll, StickyContentItem } from "../ui/sticky-scroll-reveal";
+import { CodeBlock } from '@/components/ui/code-block';
+import PageHeading from '@/components/ui/page-heading';
+
+import {
+  StickyContentItem,
+  StickyScroll,
+} from '../ui/sticky-scroll-reveal';
 
 const RealWorldProjects = () => {
     return (
@@ -78,5 +83,13 @@ const content: StickyContentItem[] = [
 ];
 
 export function Why() {
-    return <StickyScroll content={content} />;
+    return (
+        <div className="mt-20">
+            <PageHeading
+                smallHeading="Join AISOC"
+                bigHeading="Get experience and mentorship with real-world impact"
+            />
+            <StickyScroll content={content} />;
+        </div>
+    );
 }

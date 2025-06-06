@@ -1,9 +1,10 @@
 "use client";
-import { motion } from "motion/react";
-import InfoButton from "@/components/ui/info-button";
-import { CheckCircle2 } from "lucide-react";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { HeroHighlight } from "@/components/ui/hero-highlight";
+import { CheckCircle2 } from 'lucide-react';
+import { motion } from 'motion/react';
+
+import { HeroHighlight } from '@/components/ui/hero-highlight';
+import InfoButton from '@/components/ui/info-button';
+import { ShimmerButton } from '@/components/ui/shimmer-button';
 
 export function HeroSection() {
     return (

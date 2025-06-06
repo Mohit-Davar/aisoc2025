@@ -1,17 +1,25 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { IconMenu2, IconX } from "@tabler/icons-react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "motion/react";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useRef, useState } from "react";
-import "./styles/navButton.css"
+import './styles/navButton.css';
 
+import React, {
+  useRef,
+  useState,
+} from 'react';
+
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from 'motion/react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { cn } from '@/lib/utils';
+import {
+  IconMenu2,
+  IconX,
+} from '@tabler/icons-react';
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -70,7 +78,6 @@ const Nav = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      // IMPORTANT: Change this to class of `fixed` if you want the navbar to be fixed
       className={cn("fixed inset-x-0 z-40 w-full", className)}
     >
       {React.Children.map(children, (child) =>
@@ -105,8 +112,8 @@ const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "800px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex",
+        visible && "bg-white/80",
         className,
       )}
     >
@@ -129,7 +136,7 @@ const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       {items.map((item, idx) => (
         <Link
           onClick={onItemClick}
-          className="relative px-4 py-2 text-orange hover:text-white dark:text-neutral-300 transition-colors delay-100"
+          className="relative px-4 py-2 text-orange hover:text-white transition-colors delay-100"
           key={`link-${idx}`}
           href={item.link}
           onMouseEnter={() => setHovered(idx)}
@@ -137,7 +144,7 @@ const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
           {hovered === idx && (
             <motion.div
               layoutId="hovered"
-              className="absolute inset-0 bg-orange dark:bg-neutral-800 rounded-full w-full h-full"
+              className="absolute inset-0 bg-orange rounded-full w-full h-full"
             />
           )}
           <span className="z-20 relative">{item.name}</span>
@@ -168,7 +175,7 @@ const MobileNav = ({ children, className, visible }: MobileNavProps) => {
       }}
       className={cn(
         "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        visible && "bg-white/80",
         className,
       )}
     >
@@ -206,7 +213,7 @@ const MobileNavMenu = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
+            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
             className,
           )}
         >
@@ -225,9 +232,9 @@ const MobileNavToggle = ({
   onClick: () => void;
 }) => {
   return isOpen ? (
-    <IconX className="text-black dark:text-white" onClick={onClick} />
+    <IconX className="text-black" onClick={onClick} />
   ) : (
-    <IconMenu2 className="text-black dark:text-white" onClick={onClick} />
+    <IconMenu2 className="text-black" onClick={onClick} />
   );
 };
 
@@ -269,21 +276,21 @@ const NavbarButton = ({
   );
 };
 
+const navItems = [
+  {
+    name: "Timeline",
+    link: "/timeline",
+  },
+  {
+    name: "Projects",
+    link: "/projects",
+  },
+  {
+    name: "Contact",
+    link: "/contact",
+  },
+];
 export function Navbar() {
-  const navItems = [
-    {
-      name: "Timeline",
-      link: "/timeline",
-    },
-    {
-      name: "Projects",
-      link: "/projects",
-    },
-    {
-      name: "Contact",
-      link: "/contact",
-    },
-  ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -318,7 +325,7 @@ export function Navbar() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300"
+                className="relative text-neutral-600"
               >
                 <span className="block">{item.name}</span>
               </a>
@@ -332,8 +339,6 @@ export function Navbar() {
           </MobileNavMenu>
         </MobileNav>
       </Nav>
-
-      {/* Navbar */}
     </div>
   );
 }

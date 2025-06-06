@@ -1,6 +1,8 @@
 'use client';
-import { ReactNode } from "react";
-import "./styles/shimmerButton.css";
+import './styles/shimmerButton.css';
+
+import { ReactNode } from 'react';
+
 export const ShimmerButton = ({ children }: { children: ReactNode }) => {
     return (
         <div className="flex justify-center items-center">

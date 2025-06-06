@@ -1,7 +1,10 @@
-import { HeroSection } from "@/components/home/HeroSection";
-import { Stats } from "@/components/home/Stats";
-import { Why } from "@/components/home/Why";
-import { Navbar } from "@/components/ui/resizable-navbar";
+import { Footer } from '@/components/Footer';
+import { FAQ } from '@/components/home/FAQ';
+import { HeroSection } from '@/components/home/HeroSection';
+import { Stats } from '@/components/home/Stats';
+import NewsLetter from '@/components/home/Updates';
+import { Why } from '@/components/home/Why';
+import { Navbar } from '@/components/ui/resizable-navbar';
 
 export default function Home() {
   return (
@@ -10,9 +13,9 @@ export default function Home() {
       <HeroSection />
       <Stats />
       <Why />
-      <div className="min-h-screen">
-
-      </div>
+      <FAQ />
+      <NewsLetter/>
+      <Footer />
     </>
   );
 }

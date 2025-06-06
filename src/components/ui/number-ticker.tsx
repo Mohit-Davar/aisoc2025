@@ -1,9 +1,18 @@
 "use client";
 
-import { useInView, useMotionValue, useSpring } from "motion/react";
-import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
+import {
+  ComponentPropsWithoutRef,
+  useEffect,
+  useRef,
+} from 'react';
 
-import { cn } from "@/lib/utils";
+import {
+  useInView,
+  useMotionValue,
+  useSpring,
+} from 'motion/react';
+
+import { cn } from '@/lib/utils';
 
 interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   value: number;
@@ -56,7 +65,7 @@ export function NumberTicker({
     <span
       ref={ref}
       className={cn(
-        "inline-block tabular-nums tracking-wider text-black dark:text-white",
+        "inline-block tabular-nums tracking-wider text-black",
         className,
       )}
       {...props}

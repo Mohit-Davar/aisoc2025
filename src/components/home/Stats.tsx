@@ -1,6 +1,7 @@
 "use client";
-import { NumberTicker } from "@/components/ui/number-ticker";
-import { Plus } from "lucide-react";
+import { Plus } from 'lucide-react';
+
+import { NumberTicker } from '@/components/ui/number-ticker';
 
 export function Stats() {
     return (
@@ -12,7 +13,7 @@ export function Stats() {
                         startValue={5}
                         className="font-grotesk text-white"
                     />
-                    <Plus fontWeight="bold"/>
+                    <Plus fontWeight="bold" />
                 </div>
                 <span>
                     Projects
@@ -21,14 +22,14 @@ export function Stats() {
             <div className="flex flex-col items-center gap-4">
                 <div className="flex items-center">
                     <NumberTicker
-                        value={25}
-                        startValue={10}
+                        value={35}
+                        startValue={20}
                         className="font-grotesk text-white"
                     />
-                    <Plus fontWeight="bold"/>
+                    <Plus fontWeight="bold" />
                 </div>
                 <span>
-                    Teams
+                    Proposals
                 </span>
             </div>
             <div className="flex flex-col items-center gap-4">
@@ -38,7 +39,7 @@ export function Stats() {
                         startValue={85}
                         className="font-grotesk text-white"
                     />
-                    <Plus fontWeight="bold"/>
+                    <Plus fontWeight="bold" />
                 </div>
                 <span>
                     Students

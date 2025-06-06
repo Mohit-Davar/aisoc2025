@@ -1,4 +1,4 @@
-import { Code2 } from "lucide-react";
+import { Code2 } from 'lucide-react';
 
 export default function InfoButton() {
     return (

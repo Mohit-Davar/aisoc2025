@@ -1,3 +1,4 @@
+import PageLoader from '@/components/Loader';
 import './globals.css';
 import type { Metadata } from 'next';
 
@@ -7,6 +8,7 @@ import {
   Inter,
   Space_Grotesk,
 } from 'next/font/google';
+import { Suspense } from 'react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -43,7 +45,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${grotesk.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <Suspense fallback={<PageLoader />}>
+        <body className="antialiased">{children}</body>
+      </Suspense>
     </html>
   );
 }

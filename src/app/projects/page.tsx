@@ -131,9 +131,9 @@ const aisocProjects = [
 export default function Project() {
     return (
         <>
-            <SmoothCursor/>
             <Navbar />
             <div className='pt-20 font-inter'>
+                <SmoothCursor />
                 <h1 className='px-4 font-grotesk text-orange text-4xl text-center'>
                     See what Interests you
                 </h1>

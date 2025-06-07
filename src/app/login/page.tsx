@@ -15,8 +15,8 @@ const SignUpForm = () => {
     };
 
     return (
-        <div className="flex justify-center items-center bg-orange h-screen font-inter">
-            <div className="z-50 space-y-8 bg-white shadow-md p-8 rounded w-96">
+        <div className="flex justify-center items-center bg-orange px-3 h-screen font-inter">
+            <div className="z-50 space-y-8 bg-white shadow-md p-8 rounded sm:w-96">
                 <h2 className="font-grotesk font-bold text-black text-2xl text-center">Welcome Back</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>

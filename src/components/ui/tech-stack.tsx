@@ -75,7 +75,9 @@ export const Projects: React.FC<ProjectsProps> = ({ projects }) => {
     return (
         <div className="flex flex-wrap justify-center gap-6 py-10">
             {projects.map((project, i) => (
-                <ProjectCard key={i} project={project} />
+                <a href="https://docs.google.com/document/d/1wd3r6AZ0_FFVz9mhZ2GoIY7iboxICivYWdHw4EBr60c/edit?usp=drivesdk" key={i} className='cursor-none'>
+                    <ProjectCard key={i} project={project} />
+                </a>
             ))}
         </div>
     );

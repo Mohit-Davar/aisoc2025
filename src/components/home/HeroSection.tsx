@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { HeroHighlight } from '@/components/ui/hero-highlight';
 import InfoButton from '@/components/ui/info-button';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
+import Link from 'next/link';
 
 export function HeroSection() {
     return (
@@ -84,9 +85,11 @@ export function HeroSection() {
                     }}
                     className="z-10 relative flex flex-wrap justify-center items-center gap-4 mt-8"
                 >
-                    <ShimmerButton>
-                        Get Started
-                    </ShimmerButton>
+                    <Link href="/signup">
+                        <ShimmerButton>
+                            Get Started
+                        </ShimmerButton>
+                    </Link>
                 </motion.div>
             </div>
         </HeroHighlight>

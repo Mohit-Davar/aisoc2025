@@ -33,7 +33,7 @@ export const Footer = () => {
                         ))}
                     </div>
                 </div>
-                <div className="flex justify-between items-center mt-5 py-5 border-gray-200 border-t">
+                <div className="flex sm:flex-row flex-col justify-between items-center gap-3 sm:gap-0 mt-5 py-5 border-gray-200 border-t">
                     <div className="text-gray-600 text-sm text-center">
                         <p>&copy; {new Date().getFullYear()} PClub. All rights reserved.</p>
                     </div>

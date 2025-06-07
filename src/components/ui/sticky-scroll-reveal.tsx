@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export type StickyContentItem = {
@@ -17,17 +17,18 @@ interface StickyScrollProps {
 
 export const StickyScroll: React.FC<StickyScrollProps> = ({
   contentClassName,
-  content
+  content,
 }) => {
   const [activeCard, setActiveCard] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!ref.current) return;
+      if (!sectionRef.current) return;
 
       const cardElements = Array.from(
-        ref.current.querySelectorAll(".card-section")
+        sectionRef.current.querySelectorAll(".card-section")
       ) as HTMLElement[];
 
       const middleY = window.innerHeight / 2;
@@ -56,16 +57,18 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
 
   return (
     <div
-      className="flex justify-center gap-10 lg:mx-auto p-10 lg:max-w-5xl"
-      ref={ref}
+      ref={sectionRef}
+      className="flex gap-10 lg:mx-auto p-10 lg:max-w-5xl"
     >
-      {/* Left Text Content */}
-      <div className="space-y-20 max-w-3xl lg:text-left text-center">
+      {/* Left Text Content - slide in from left */}
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.3, ease: "linear" }}
+        className="space-y-20 max-w-3xl lg:text-left text-center"
+      >
         {content.map((item, index) => (
-          <div
-            key={`${item.title}-${index}`}
-            className="card-section"
-          >
+          <div key={`${item.title}-${index}`} className="card-section">
             <motion.h2
               initial={{ opacity: 0 }}
               animate={{ opacity: activeCard === index ? 1 : 0.3 }}
@@ -84,10 +87,13 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
             </motion.p>
           </div>
         ))}
-      </div>
+      </motion.div>
 
-      {/* Right Sticky Box with animated component */}
-      <div
+      {/* Right Sticky Component - slide in from right */}
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.3, ease: "linear", delay: 0.2 }}
         className={cn(
           "sticky top-32 hidden h-60 bg-slate-900 w-full overflow-hidden transition-all duration-300 lg:block",
           contentClassName
@@ -97,16 +103,16 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
           {activeComponent && (
             <motion.div
               key={activeCard}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
               {activeComponent}
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   );
 };

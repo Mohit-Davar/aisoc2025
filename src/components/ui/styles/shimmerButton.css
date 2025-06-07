@@ -5,8 +5,10 @@
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    display: inline-block;
     outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 25px;
     border: none;
     background: linear-gradient(45deg, #FF9800,#FFD645);

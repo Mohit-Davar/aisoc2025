@@ -1,17 +1,27 @@
 "use client";
 import { CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
+import Link from 'next/link';
 
 import { HeroHighlight } from '@/components/ui/hero-highlight';
 import InfoButton from '@/components/ui/info-button';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
-import Link from 'next/link';
 
 export function HeroSection() {
     return (
         <HeroHighlight>
             <div className="relative flex flex-col justify-center items-center mx-auto px-4 py-10 md:py-20 max-w-7xl min-h-screen font-inter text-neutral-600 dark:text-neutral-400">
-                <InfoButton />
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{
+                        duration: 0.5,
+                        delay: 0.2,
+                        ease: "easeOut",
+                    }}
+                >
+                    <InfoButton />
+                </motion.div>
                 <h1 className="z-10 relative mx-auto mt-4 sm:max-w-2xl font-bold text-cente text-orange text-3xl md:text-4xl lg:text-7xl text-center">
                     {"Build solutions that matter"
                         .split(" ")

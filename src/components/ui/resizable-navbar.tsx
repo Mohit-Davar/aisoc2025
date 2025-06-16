@@ -136,7 +136,7 @@ const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       {items.map((item, idx) => (
         <Link
           onClick={onItemClick}
-          className="relative px-4 py-2 text-orange hover:text-white transition-colors delay-100"
+          className="relative px-4 py-2 text-orange"
           key={`link-${idx}`}
           href={item.link}
           onMouseEnter={() => setHovered(idx)}
@@ -144,7 +144,7 @@ const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
           {hovered === idx && (
             <motion.div
               layoutId="hovered"
-              className="absolute inset-0 bg-orange rounded-full w-full h-full"
+              className="absolute inset-0 bg-orange-100 rounded-full w-full h-full"
             />
           )}
           <span className="z-20 relative">{item.name}</span>

@@ -1,20 +1,20 @@
 'use client';
-
 import React from 'react';
 
 import {
-  BellRing,
-  CheckIcon,
-  ChevronRightIcon,
-  Mail,
+    BellRing,
+    CheckIcon,
+    ChevronRightIcon,
+    Mail,
 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import {
-  AnimatedSubscribeButton,
+    AnimatedSubscribeButton,
 } from '@/components/ui/animated-subscribe-button';
 import { FlickeringGrid } from '@/components/ui/flickering-grid';
+import { supabase } from '@/lib/supabaseClient';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const emailSchema = z.object({
@@ -33,9 +33,19 @@ export const NewsLetter = () => {
         resolver: zodResolver(emailSchema),
     });
 
-    const onSubmit = (data: EmailForm) => {
-        console.log("Email submitted:", data.email);
-        reset();
+    const onSubmit = async (data: EmailForm) => {
+        try {
+            const { error } = await supabase
+                .from('newsletter_subscribers')
+                .insert({ email: data.email });
+
+            if (error) throw error;
+
+            console.log("Email submitted to Supabase:", data.email);
+            reset();
+        } catch (error) {
+            console.error("Supabase insert error:", error);
+        }
     };
 
     return (

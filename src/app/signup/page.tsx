@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { supabase } from '@/lib/supabaseClient';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-// Schema
 const SignUpSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     email: z.string().email('Invalid email address'),
@@ -17,6 +18,7 @@ const SignUpSchema = z.object({
 type SignUpFormData = z.infer<typeof SignUpSchema>;
 
 const SignUpForm = () => {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -26,9 +28,26 @@ const SignUpForm = () => {
         resolver: zodResolver(SignUpSchema),
     });
 
-    const onSubmit = (data: SignUpFormData) => {
-        console.log(data);
-        reset();
+    const onSubmit = async (data: SignUpFormData) => {
+        try {
+            const { error } = await supabase.auth.signUp({
+                email: data.email,
+                password: data.password,
+                options: {
+                    data: {
+                        name: data.name,
+                    },
+                    emailRedirectTo: `${location.origin}/projects`,
+                },
+            });
+
+            if (error) throw error;
+
+            router.push('/projects');
+            reset();
+        } catch (error) {
+            console.error('Signup error:', error);
+        }
     };
 
     return (

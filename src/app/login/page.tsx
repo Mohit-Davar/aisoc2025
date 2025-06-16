@@ -1,12 +1,14 @@
 'use client';
 
-import { ShimmerButton } from '@/components/ui/shimmer-button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { supabase } from '@/lib/supabaseClient';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-// Schema
 const LoginSchema = z.object({
     email: z.string().email('Invalid email'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
@@ -24,9 +26,20 @@ const LoginForm = () => {
         resolver: zodResolver(LoginSchema),
     });
 
-    const onSubmit = (data: LoginFormData) => {
-        console.log(data);
-        reset();
+    const router = useRouter();
+    const onSubmit = async (data: LoginFormData) => {
+        try {
+            const { error } = await supabase.auth.signInWithPassword({
+                email: data.email,
+                password: data.password,
+            });
+
+            if (error) throw error;
+            router.push('/projects');
+            reset();
+        } catch (error) {
+            console.error('Login error:', error);
+        }
     };
 
     return (

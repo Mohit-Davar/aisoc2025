@@ -1,24 +1,26 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/ui/resizable-navbar';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { supabase } from '@/lib/supabaseClient';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-// Define schema
 const ContactFormSchema = z.object({
     name: z.string().min(1, 'Name is required'),
     email: z.string().email('Invalid email address'),
     message: z.string().min(1, 'Message is required'),
 });
 
-// Infer types
 type ContactFormType = z.infer<typeof ContactFormSchema>;
 
 export default function Contact() {
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -28,9 +30,26 @@ export default function Contact() {
         resolver: zodResolver(ContactFormSchema),
     });
 
-    const onSubmit = (data: ContactFormType) => {
-        console.log(data);
-        reset();
+    const onSubmit = async (data: ContactFormType) => {
+        try {
+            const { error } = await supabase
+                .from('contact_submissions')
+                .insert([
+                    {
+                        name: data.name,
+                        email: data.email,
+                        message: data.message,
+                        created_at: new Date().toISOString(),
+                    }
+                ]);
+
+            if (error) throw error;
+
+            router.push('/');
+            reset();
+        } catch (error) {
+            console.error('Submission error:', error);
+        }
     };
 
     return (
